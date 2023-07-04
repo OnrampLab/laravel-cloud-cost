@@ -1,10 +1,10 @@
 <?php
 
-namespace OnrampLab\LaravelPackageTemplate;
+namespace OnrampLab\CloudCost;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelPackageTemplateServiceProvider extends ServiceProvider
+class CloudCostServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -19,12 +19,17 @@ class LaravelPackageTemplateServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->offerPublishing();
+    }
+
+    public function offerPublishing(): void
+    {
         $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations'),
-        ], 'package-template-migrations');
+        ], 'laravel-cloud-cost-migration');
 
         $this->publishes([
-            __DIR__ . '/../config/package_template.php' => config_path('package_template.php'),
-        ], 'package-template-config');
+            __DIR__ . '/../config/cloud-cost.php' => config_path('cloud-cost.php'),
+        ], 'laravel-cloud-cost-config');
     }
 }
