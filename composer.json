@@ -1,17 +1,13 @@
 {
-    "name": "onramplab/laravel-package-template",
-    "description": "An laravel template",
+    "name": "onramplab/laravel-cloud-cost",
+    "description": "query cloud cost information",
     "type": "library",
     "license": "MIT",
     "keywords": [
-        "template",
         "laravel",
         "package",
-        "skeleton",
-        "boilerplate",
-        "laravel template",
-        "package template",
-        "laravel package template"
+        "cloud",
+        "cost"
     ],
     "authors": [
         {
