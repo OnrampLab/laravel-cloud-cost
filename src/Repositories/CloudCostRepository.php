@@ -22,9 +22,11 @@ class CloudCostRepository
 
     public function upsert(CloudCost $cloudCost): CloudCost
     {
-        $isExisted = $this->findByTypeAndDate($cloudCost->type, $cloudCost->year, $cloudCost->month);
-        if ($isExisted) {
-            return $this->update($cloudCost);
+        $existedCloudCost = $this->findByTypeAndDate($cloudCost->type, $cloudCost->year, $cloudCost->month);
+        if ($existedCloudCost) {
+            $existedCloudCost->amount = $cloudCost->amount;
+            $existedCloudCost->currency = $cloudCost->currency;
+            return $this->update($existedCloudCost);
         } else {
             return $this->create($cloudCost);
         }
