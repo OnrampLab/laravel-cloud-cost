@@ -2,9 +2,10 @@
 
 namespace OnrampLab\CloudCost;
 
-use Aws\Laravel\AwsFacade;
-use Aws\Laravel\AwsServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use OnrampLab\CloudCost\Console;
+use OnrampLab\CloudCost\Facades\AwsFacade;
+use OnrampLab\CloudCost\Providers\AwsServiceProvider;
 
 class CloudCostServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,7 @@ class CloudCostServiceProvider extends ServiceProvider
         // $this->mergeConfigFrom(__DIR__ . '/../config/package_template.php', 'package_template');
 
         $this->registerAws();
+        $this->registerCommands();
     }
 
     /**
@@ -40,6 +42,15 @@ class CloudCostServiceProvider extends ServiceProvider
     public function registerAws(): void
     {
         $this->app->register(AwsServiceProvider::class);
-        $this->app->alias('AWS', AwsFacade::class);
+        $this->app->alias('aws', AwsFacade::class);
+    }
+
+    public function registerCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\Sync::class,
+            ]);
+        }
     }
 }
