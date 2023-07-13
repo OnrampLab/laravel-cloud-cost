@@ -7,25 +7,33 @@ use Aws\Result;
 use Aws\Sdk;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Mockery;
+use OnrampLab\CloudCost\Facades\AwsFacade;
+use OnrampLab\CloudCost\Providers\AwsProviderManager;
 
 final class AwsSdkMock
 {
     public static function fake(): void
     {
         App::singleton('aws', function (Application $app) {
-            $sdkMock = Mockery::mock(Sdk::class);
 
             $costExplorerClientMock = Mockery::mock(CostExplorerClient::class);
             $costExplorerClientMock
                 ->shouldReceive('getCostAndUsage')
                 ->andReturn(AwsSdkMockData::getCostAndUsage());
 
+            $sdkMock = Mockery::mock(Sdk::class);
             $sdkMock->shouldReceive('createClient')
                 ->with('costExplorer')
                 ->andReturn($costExplorerClientMock);
 
-            return $sdkMock;
+            $providerMock = Mockery::mock(AwsProviderManager::class);
+            $providerMock
+                ->shouldReceive('getSdk')
+                ->andReturn($sdkMock);
+
+            return $providerMock;
         });
     }
 }

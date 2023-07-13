@@ -23,7 +23,7 @@ php artisan migrate
 
 ## Sync costs to database
 ```
-php artisan cloud-cost:sync main-setting 2023 1 
+php artisan cloud-cost:sync aws_default 2023 1 
 ```
 
 ## Running Tests:

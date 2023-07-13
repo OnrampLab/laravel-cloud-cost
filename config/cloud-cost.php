@@ -8,7 +8,7 @@ return [
     |
     */
     'providers' => [
-        'main-setting' => [
+        'aws_default' => [
             'driver' => 'aws',
             'config' => [
                 'filter' => [

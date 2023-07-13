@@ -3,10 +3,8 @@
 namespace OnrampLab\CloudCost\Services\Aws;
 
 use Aws\CostExplorer\CostExplorerClient;
-use Aws\Result;
 use OnrampLab\CloudCost\DataTransferObjects\GetMonthlyAwsCostRequest;
 use OnrampLab\CloudCost\DataTransferObjects\GetMonthlyAwsCostResponse;
-use OnrampLab\CloudCost\Facades\AwsFacade as Aws;
 
 class GetMonthlyAwsCostService
 {
@@ -20,7 +18,7 @@ class GetMonthlyAwsCostService
         /**
          * @var CostExplorerClient $client
          */
-        $client = Aws::createClient('costExplorer');
+        $client = app('aws')->getSdk()->createClient('costExplorer');
         $result = $client->getCostAndUsage([
             'Filter' => $request->filter,
             'Metrics' => ['AmortizedCost'],

@@ -4,8 +4,7 @@ namespace OnrampLab\CloudCost;
 
 use Illuminate\Support\ServiceProvider;
 use OnrampLab\CloudCost\Console;
-use OnrampLab\CloudCost\Facades\AwsFacade;
-use OnrampLab\CloudCost\Providers\AwsServiceProvider;
+use OnrampLab\CloudCost\Providers\AwsProviderManager;
 
 class CloudCostServiceProvider extends ServiceProvider
 {
@@ -41,8 +40,9 @@ class CloudCostServiceProvider extends ServiceProvider
 
     public function registerAws(): void
     {
-        $this->app->register(AwsServiceProvider::class);
-        $this->app->alias('aws', AwsFacade::class);
+        $this->app->singleton('aws', function ($app) {
+            return new AwsProviderManager($app);
+        });
     }
 
     public function registerCommands(): void
