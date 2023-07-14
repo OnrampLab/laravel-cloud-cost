@@ -1,5 +1,9 @@
 # laravel-cloud-cost
 
+## Features
+- Sync AWS costs and storage to database
+- Users can set tags rules in config to query AWS cost
+
 ## Requirements
 
 - PHP >= 8.1;
@@ -16,6 +20,12 @@ composer require onramplab/laravel-cloud-cost
 php artisan vendor:publish --provider="OnrampLab\CloudCost\CloudCostServiceProvider"
 php artisan migrate
 ```
+
+## Sync costs to database
+```
+php artisan cloud-cost:sync aws_default 2023 1 
+```
+
 ## Running Tests:
 
     php vendor/bin/phpunit
