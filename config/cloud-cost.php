@@ -6,6 +6,11 @@ return [
     | custom config
     |--------------------------------------------------------------------------
     |
+    | Users can set parameters according to their own situation
+    |
+    | config.filter: only for aws filter setting
+    |
+    |
     */
     'providers' => [
         'aws_default' => [
@@ -25,6 +30,8 @@ return [
     |--------------------------------------------------------------------------
     | drivers
     |--------------------------------------------------------------------------
+    |
+    | aws: https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html
     |
     */
     'driver' => [

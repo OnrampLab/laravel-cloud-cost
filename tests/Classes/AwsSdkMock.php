@@ -7,9 +7,7 @@ use Aws\Result;
 use Aws\Sdk;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use Mockery;
-use OnrampLab\CloudCost\Facades\AwsFacade;
 use OnrampLab\CloudCost\Providers\AwsProviderManager;
 
 final class AwsSdkMock
@@ -47,11 +45,11 @@ final class AwsSdkMockData
                 [
                     'TimePeriod' => [
                         'Start' => '2023-06-01',
-                        'End' => '2023-07-01',
+                        'End' => '2023-06-02',
                     ],
                     'Total' => [
                         'AmortizedCost' => [
-                            'Amount' => '100',
+                            'Amount' => 20.0123456789,
                             'Unit' => 'USD',
                         ],
                     ],
