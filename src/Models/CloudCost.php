@@ -16,8 +16,7 @@ use OnrampLab\CloudCost\Enums\CloudCostType;
  * @property CloudCostType $type
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property int $year
- * @property int $month
+ * @property Carbon $date
  * @property float $amount
  * @property CloudCostCurrency $currency
  * @mixin Builder
@@ -33,8 +32,7 @@ class CloudCost extends Model
         'type',
         'created_at',
         'updated_at',
-        'year',
-        'month',
+        'date',
         'amount',
         'currency',
     ];

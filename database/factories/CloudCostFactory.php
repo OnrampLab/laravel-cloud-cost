@@ -15,8 +15,7 @@ class CloudCostFactory extends Factory
     {
         return [
             'type'     => CloudCostType::AWS,
-            'year'     => (int)$this->faker->year(),
-            'month'    => (int)$this->faker->month(),
+            'date'     => $this->faker->date,
             'amount'   => $this->faker->randomFloat(null, 0, 100.999999),
             'currency' => CloudCostCurrency::USD,
         ];

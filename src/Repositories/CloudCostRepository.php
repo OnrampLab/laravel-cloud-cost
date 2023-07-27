@@ -2,6 +2,8 @@
 
 namespace OnrampLab\CloudCost\Repositories;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use OnrampLab\CloudCost\Enums\CloudCostType;
 use OnrampLab\CloudCost\Models\CloudCost;
 
@@ -12,17 +14,22 @@ class CloudCostRepository
         return CloudCost::where('id', $id)->first();
     }
 
-    public function findByTypeAndDate(CloudCostType $type, int $year, int $month): ?CloudCost
+    public function findByTypeAndDate(CloudCostType $type, Carbon $date): ?CloudCost
     {
         return CloudCost::where('type', $type)
-            ->where('year', $year)
-            ->where('month', $month)
+            ->where('date', $date->format('Y-m-d'))
             ->first();
+    }
+
+    public function findByDate(Carbon $date): Collection
+    {
+        return CloudCost::where('date', $date->format('Y-m-d'))
+            ->get();
     }
 
     public function upsert(CloudCost $cloudCost): CloudCost
     {
-        $existedCloudCost = $this->findByTypeAndDate($cloudCost->type, $cloudCost->year, $cloudCost->month);
+        $existedCloudCost = $this->findByTypeAndDate($cloudCost->type, $cloudCost->date);
         if ($existedCloudCost) {
             $existedCloudCost->amount = $cloudCost->amount;
             $existedCloudCost->currency = $cloudCost->currency;
@@ -36,8 +43,7 @@ class CloudCostRepository
     {
         return CloudCost::create([
             'type' => $cloudCost->type,
-            'year' => $cloudCost->year,
-            'month' => $cloudCost->month,
+            'date' => $cloudCost->date,
             'amount' => $cloudCost->amount,
             'currency' => $cloudCost->currency,
         ]);
