@@ -2,6 +2,7 @@
 
 namespace OnrampLab\CloudCost\Tests\Unit\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use OnrampLab\CloudCost\Enums\CloudCostCurrency;
 use OnrampLab\CloudCost\Enums\CloudCostType;
@@ -40,8 +41,7 @@ class CloudCostRepositoryTest extends TestCase
     {
         $cloudCost = new CloudCost([
             'type' => CloudCostType::AWS,
-            'year' => 2023,
-            'month' => 1,
+            'date' => Carbon::create(2023, 1, 1),
             'amount' => 12.50,
             'currency' => CloudCostCurrency::USD,
         ]);

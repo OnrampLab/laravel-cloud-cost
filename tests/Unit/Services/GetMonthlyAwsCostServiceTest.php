@@ -55,14 +55,12 @@ final class GetMonthlyAwsCostServiceTest extends TestCase
         $createCloudCost = new CloudCost([
             'type' => CloudCostType::AWS,
             'amount' => $result->amount,
-            'year' => 2023,
-            'month' => 1,
+            'date' => Carbon::createFromDate(2023, 1, 1),
             'currency' => CloudCostCurrency::from($result->currency),
         ]);
         $cloudCost = $this->cloudCostRepository->upsert($createCloudCost);
 
-        $this->assertEquals(2023, $cloudCost->year);
-        $this->assertEquals(1, $cloudCost->month);
+        $this->assertEquals('2023-01-01', $cloudCost->date->format('Y-m-d'));
         $this->assertEquals($result->amount, $cloudCost->amount);
         $this->assertEquals($result->currency, $cloudCost->currency->value);
     }

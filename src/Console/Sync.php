@@ -11,7 +11,7 @@ class Sync extends Command
     /**
      * @var string
      */
-    protected $signature = 'cloud-cost:sync {providerName} {year} {month}';
+    protected $signature = 'cloud-cost:sync {providerName} {year} {month} {day}';
 
     /**
      * @var string
@@ -19,6 +19,7 @@ class Sync extends Command
     protected $description = 'sync costs';
     private int $year;
     private int $month;
+    private int $day;
     private string $providerDriver;
     private array $providerConfig;
 
@@ -44,7 +45,8 @@ class Sync extends Command
             $service->perform(
                 $this->providerConfig['filter'] ?? [],
                 $this->year,
-                $this->month
+                $this->month,
+                $this->day,
             );
         }
 
@@ -60,6 +62,7 @@ class Sync extends Command
         $providerName = (string)$this->argument('providerName');
         $this->year = (int)$this->argument('year');
         $this->month = (int)$this->argument('month');
+        $this->day = (int)$this->argument('day');
 
         $providers = config('cloud-cost.providers');
         if (!isset($providers[$providerName])) {
